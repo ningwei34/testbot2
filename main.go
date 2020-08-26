@@ -22,7 +22,7 @@ func main() {
 	addr := fmt.Sprintf(":%s", port)
 	http.ListenAndServe(addr, nil)
 	data := url.Values{
-		"action":       {"CO2O"},
+		"action":       {"C020"},
 		"message_type": {"line"},
 		"user_id":      {"5622512"},
 		"tel":          {"123456"},
