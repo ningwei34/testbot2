@@ -21,6 +21,25 @@ func main() {
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	http.ListenAndServe(addr, nil)
+	data := url.Values{
+		"action":       {"CO2O"},
+		"message_type": {"line"},
+		"user_id":      {"5622512"},
+		"tel":          {"123456"},
+		"name":         {"gogo610"},
+		"birthday":     {"1010101"},
+	}
+	resp, err := http.PostForm("http://192.168.100.48:8010/610_is_good/user_info", data)
+
+	if err != nil {
+		panic(err)
+	}
+
+	var res interface{}
+
+	json.NewDecoder(resp.Body).Decode(&res)
+
+	fmt.Println(res)
 }
 
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
@@ -48,24 +67,24 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func postToBack() {
-	data := url.Values{
-		"action":       {"CO2O"},
-		"message_type": {"line"},
-		"user_id":      {"5622512"},
-		"tel":          {"123456"},
-		"name":         {"gogo610"},
-		"birthday":     {"1010101"},
-	}
-	resp, err := http.PostForm("http://192.168.100.48:8010/610_is_good/user_info", data)
+// func postToBack() {
+// 	data := url.Values{
+// 		"action":       {"CO2O"},
+// 		"message_type": {"line"},
+// 		"user_id":      {"5622512"},
+// 		"tel":          {"123456"},
+// 		"name":         {"gogo610"},
+// 		"birthday":     {"1010101"},
+// 	}
+// 	resp, err := http.PostForm("http://192.168.100.48:8010/610_is_good/user_info", data)
 
-	if err != nil {
-		panic(err)
-	}
+// 	if err != nil {
+// 		panic(err)
+// 	}
 
-	var res interface{}
+// 	var res interface{}
 
-	json.NewDecoder(resp.Body).Decode(&res)
+// 	json.NewDecoder(resp.Body).Decode(&res)
 
-	fmt.Println(res)
-}
+// 	fmt.Println(res)
+// }
