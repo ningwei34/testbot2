@@ -1,11 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
-	"strconv"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -39,30 +40,31 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 
-				// data := url.Values{
-				// 	"action":       {"CO2O"},
-				// 	"message_type": {"line"},
-				// 	"user_id":      {"5622512"},
-				// 	"tel":          {"123456"},
-				// 	"name":         {"gogo610"},
-				// 	"birthday":     {"1010101"},
-				// }
-				// resp, err := http.PostForm("http://192.168.100.101:8000/610_is_good/user_info", data)
-
-				// if err != nil {
-				// 	panic(err)
-				// }
-
-				// var res interface{}
-
-				// json.NewDecoder(resp.Body).Decode(&res)
-
-				// fmt.Println(res)
-				quota, err := bot.GetMessageQuota().Do()
-				if err != nil {
-					log.Println("Quota err:", err)
+				data := url.Values{
+					"action":       {"CO2O"},
+					"message_type": {"line"},
+					"user_id":      {"5622512"},
+					"tel":          {"123456"},
+					"name":         {"gogo610"},
+					"birthday":     {"1010101"},
 				}
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Hello"+message.Text+strconv.FormatInt(quota.Value, 10))).Do(); err != nil {
+				resp, err := http.PostForm("http://192.168.100.101:8000/610_is_good/user_info", data)
+
+				if err != nil {
+					panic(err)
+				}
+
+				var res interface{}
+
+				json.NewDecoder(resp.Body).Decode(&res)
+
+				fmt.Println(res)
+
+				// quota, err := bot.GetMessageQuota().Do()
+				// if err != nil {
+				// 	log.Println("Quota err:", err)
+				// }
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+event.Source.UserID)).Do(); err != nil {
 					log.Print(err)
 				}
 			}
