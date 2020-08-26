@@ -52,7 +52,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					"name":         {"gogo610"},
 					"birthday":     {"1010101"},
 				}
-				resp, err := http.PostForm("http://192.168.100.101:8000/610_is_good/user_info", data)
+				resp, err := http.PostForm("http://192.168.100.48:8010/610_is_good/user_info", data)
 
 				if err != nil {
 					panic(err)
