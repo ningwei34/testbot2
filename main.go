@@ -21,25 +21,6 @@ func main() {
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	http.ListenAndServe(addr, nil)
-	data := url.Values{
-		"action":       {"C020"},
-		"message_type": {"line"},
-		"user_id":      {"5622512"},
-		"tel":          {"123456"},
-		"name":         {"gogo610"},
-		"birthday":     {"1010101"},
-	}
-	resp, err := http.PostForm("http://60.251.32.50:8010/610_is_good/user_info", data)
-
-	if err != nil {
-		panic(err)
-	}
-
-	var res interface{}
-
-	json.NewDecoder(resp.Body).Decode(&res)
-
-	fmt.Println(res)
 }
 
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
@@ -61,6 +42,25 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+"\n"+event.Source.UserID)).Do(); err != nil {
 					log.Print(err)
+					data := url.Values{
+						"action":       {"C020"},
+						"message_type": {"line"},
+						"user_id":      {"5622512"},
+						"tel":          {"123456"},
+						"name":         {"gogo610"},
+						"birthday":     {"1010101"},
+					}
+					resp, err := http.PostForm("http://60.251.32.50:8010/610_is_good/user_info", data)
+
+					if err != nil {
+						panic(err)
+					}
+
+					var res interface{}
+
+					json.NewDecoder(resp.Body).Decode(&res)
+
+					fmt.Println(res)
 				}
 			}
 		}
