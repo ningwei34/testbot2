@@ -58,11 +58,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					panic(err)
 				}
 
-				var res interface{}
+				// var res interface{}
+				var res string
 
 				json.NewDecoder(resp.Body).Decode(&res)
 
 				fmt.Println(res)
+				linebot.NewTextMessage(res)
 
 			}
 		}
