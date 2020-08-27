@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -42,25 +44,25 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					log.Print(err)
 				}
 
-				// data := url.Values{
-				// 	"action":       {"C020"},
-				// 	"message_type": {"line"},
-				// 	"user_id":      {"5622512"},
-				// 	"tel":          {"123456"},
-				// 	"name":         {"gogo610"},
-				// 	"birthday":     {"1010101"},
-				// }
-				// resp, err := http.PostForm("http://60.251.32.50:8010/610_is_good/user_info", data)
+				data := url.Values{
+					"action":       {"C020"},
+					"message_type": {"line"},
+					"user_id":      {"5622512"},
+					"tel":          {"123456"},
+					"name":         {"gogo610"},
+					"birthday":     {"1010101"},
+				}
+				resp, err := http.PostForm("http://60.251.32.50:8010/610_is_good/user_info", data)
 
-				// if err != nil {
-				// 	panic(err)
-				// }
+				if err != nil {
+					panic(err)
+				}
 
-				// var res interface{}
+				var res interface{}
 
-				// json.NewDecoder(resp.Body).Decode(&res)
+				json.NewDecoder(resp.Body).Decode(&res)
 
-				// fmt.Println(res)
+				fmt.Println(res)
 
 			}
 		}
