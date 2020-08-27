@@ -64,7 +64,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				json.NewDecoder(resp.Body).Decode(&res)
 
 				fmt.Println(res)
-				linebot.NewTextMessage("123")
+
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(res)).Do(); err != nil {
+					log.Print(err)
+				}
 
 			}
 		}
