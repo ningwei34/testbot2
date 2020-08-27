@@ -29,7 +29,7 @@ func main() {
 		"name":         {"gogo610"},
 		"birthday":     {"1010101"},
 	}
-	resp, err := http.PostForm("http://192.168.100.48:8010/610_is_good/user_info", data)
+	resp, err := http.PostForm("http://60.251.32.50:8010/610_is_good/user_info", data)
 
 	if err != nil {
 		panic(err)
