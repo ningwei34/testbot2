@@ -40,9 +40,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+"\n"+event.Source.UserID)).Do(); err != nil {
-					log.Print(err)
-				}
+				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+"\n"+event.Source.UserID)).Do(); err != nil {
+				// 	log.Print(err)
+				// }
 
 				data := url.Values{
 					"action":       {"C020"},
@@ -67,7 +67,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 				fmt.Println(res2)
 
-				if _, err = bot.PushMessage(event.ReplyToken, linebot.NewTextMessage(res2)).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+res2)).Do(); err != nil {
 					log.Print(err)
 				}
 
