@@ -67,7 +67,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 				fmt.Println(res2)
 
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+res2)).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+"\n"+"User ID: "+event.Source.UserID+"\n"+"Response from Server: "+res2)).Do(); err != nil {
 					log.Print(err)
 				}
 
